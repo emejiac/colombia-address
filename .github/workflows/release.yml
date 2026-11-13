@@ -1,0 +1,30 @@
+name: Release
+
+# Push a tag like v0.2.0 -> CI stages the package on npm (no tokens, OIDC),
+# then I approve it with 2FA from npmjs.com or `npm stage approve`.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - run: npm ci
+      # Staged publishing needs npm 11.15+, Node 22 ships with npm 10
+      - run: npm install -g npm@11
+      - run: npm stage publish --access public
+      - name: GitHub release
+        run: gh release create "$GITHUB_REF_NAME" --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,0 +1,71 @@
+{
+  "name": "colombia-address",
+  "version": "0.1.0",
+  "description": "Parser de direcciones colombianas: normaliza, formatea y compara direcciones (Calle, Carrera, Diagonal...). Colombian street address parser and normalizer. Zero dependencies.",
+  "keywords": [
+    "colombia",
+    "direcciones",
+    "direccion",
+    "address",
+    "address-parser",
+    "parse-address",
+    "normalize-address",
+    "nomenclatura",
+    "calle",
+    "carrera",
+    "geocoding",
+    "e-commerce",
+    "domicilios",
+    "logistica",
+    "typescript"
+  ],
+  "author": "Esneider Mejía Ciro (https://github.com/emejiac)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emejiac/colombia-address.git"
+  },
+  "homepage": "https://github.com/emejiac/colombia-address#readme",
+  "bugs": {
+    "url": "https://github.com/emejiac/colombia-address/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run format:check && npm run test:tz && npm run build",
+    "test:tz": "TZ=America/Bogota vitest run && TZ=Asia/Tokyo vitest run && TZ=UTC vitest run",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.10.1",
+    "tsup": "^9.0.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.1.0"
+  }
+}
