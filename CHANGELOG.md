@@ -5,6 +5,12 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versio
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-13
+
+### Changed
+
+- Release workflow skips publishing when the tagged version is already on npm.
+
 ## [0.1.0] - 2026-11-12
 
 ### Added
@@ -14,5 +20,6 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versio
 - `isSameAddress` and `addressKey` to compare and deduplicate addresses.
 - `isValidAddress`.
 
-[Unreleased]: https://github.com/emejiac/colombia-address/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/emejiac/colombia-address/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/emejiac/colombia-address/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/emejiac/colombia-address/releases/tag/v0.1.0

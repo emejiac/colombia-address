@@ -23,8 +23,19 @@ jobs:
       - run: npm ci
       # Staged publishing needs npm 11.15+, Node 22 ships with npm 10
       - run: npm install -g npm@11
+      # The very first version is published by hand (npm needs the package to exist
+      # before trusting this workflow), so don't fail when the tag points to it.
+      - name: Check if this version is already on npm
+        id: check
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          fi
       - run: npm stage publish --access public
+        if: steps.check.outputs.published != 'true'
       - name: GitHub release
-        run: gh release create "$GITHUB_REF_NAME" --generate-notes
+        run: gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 || gh release create "$GITHUB_REF_NAME" --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}

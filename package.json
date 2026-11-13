@@ -1,6 +1,6 @@
 {
   "name": "colombia-address",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Parser de direcciones colombianas: normaliza, formatea y compara direcciones (Calle, Carrera, Diagonal...). Colombian street address parser and normalizer. Zero dependencies.",
   "keywords": [
     "colombia",
